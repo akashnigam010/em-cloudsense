@@ -11,6 +11,7 @@ public enum ClientRegistrationErrorCodeType implements BusinessErrorCode {
 		this.value = value;
 	}
 
+	@Override
 	public Integer getBusinessErrorCode() {
 		return value;
 	}

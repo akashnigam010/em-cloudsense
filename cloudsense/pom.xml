@@ -49,12 +49,6 @@
 			<version>${cwf.version}</version>
 		</dependency>
 		
-		<dependency>
-			<groupId>cwf</groupId>
-			<artifactId>cwf-dbhelper</artifactId>
-			<version>${cwf.version}</version>
-		</dependency>
-		
 		<!-- Sense API Dependencies -->
 		<dependency>
 			<groupId>cw</groupId>
@@ -152,6 +146,7 @@
 	<!-- Project Modules -->
 	<modules>
 		<module>slu</module>
+		<module>cloudsense-dao</module>
 		<module>tsl</module>
 		<module>cloudsense-ui</module>
 	</modules>

@@ -14,18 +14,15 @@ import in.cw.csense.app.type.ClientRegistrationErrorCodeType;
 
 @Repository
 public class CloudDetailsDao {
+	@Autowired MongoTemplate cloudSenseMongoTemplate;
+	@Autowired CloudDetailsMapper mapper;
 
-	@Autowired
-	MongoTemplate senseMongoTemplate;
-	@Autowired
-	CloudDetailsMapper mapper;
-
-	public void setSenseMongoTemplate(MongoTemplate senseMongoTemplate) {
-		this.senseMongoTemplate = senseMongoTemplate;
+	public void setCloudSenseMongoTemplate(MongoTemplate cloudSenseMongoTemplate) {
+		this.cloudSenseMongoTemplate = cloudSenseMongoTemplate;
 	}
 
 	public CloudDetailsDto getCloudDetails() throws BusinessException {
-		List<CloudDetails> cloudDetails = senseMongoTemplate.findAll(CloudDetails.class);
+		List<CloudDetails> cloudDetails = cloudSenseMongoTemplate.findAll(CloudDetails.class);
 		if (cloudDetails.size() != 1) {
 			throw new BusinessException(ClientRegistrationErrorCodeType.CLOUD_DETAILS_NOT_FOUND);
 		}
