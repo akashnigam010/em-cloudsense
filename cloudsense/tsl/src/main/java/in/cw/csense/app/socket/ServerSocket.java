@@ -11,7 +11,6 @@ import org.apache.log4j.Logger;
 
 import in.cw.csense.app.exception.ClientNotFoundException;
 import in.cw.csense.app.processor.MessageProcessor;
-import in.cw.csense.app.websocket.SessionCollector;
 
 @ServerEndpoint(value = "/server", configurator = ServerSocketConfigurator.class)
 public class ServerSocket {

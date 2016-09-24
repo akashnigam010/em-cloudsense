@@ -1,4 +1,4 @@
-package in.cw.csense.app.websocket;
+package in.cw.csense.app.socket;
 
 import java.util.HashMap;
 import java.util.Map;

@@ -6,7 +6,6 @@ import java.util.List;
 import javax.websocket.Session;
 
 import in.cw.csense.app.message.processor.MessageProcessor;
-import in.cw.sense.api.bo.bill.dto.BillDto;
 import in.cw.sense.api.bo.bill.entity.BillEntity;
 
 public class BillDetailMessageElement implements MessageElement {

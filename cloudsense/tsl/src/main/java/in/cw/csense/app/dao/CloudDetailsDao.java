@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.stereotype.Repository;
 
-import cwf.dbhelper.SenseContext;
 import cwf.helper.exception.BusinessException;
 import in.cw.csense.app.dto.CloudDetailsDto;
 import in.cw.csense.app.entity.CloudDetails;
@@ -17,21 +16,19 @@ import in.cw.csense.app.type.ClientRegistrationErrorCodeType;
 public class CloudDetailsDao {
 
 	@Autowired
-	SenseContext context;
+	MongoTemplate senseMongoTemplate;
 	@Autowired
 	CloudDetailsMapper mapper;
 
-	public CloudDetailsDto getCloudDetails() throws BusinessException {
-		MongoTemplate template = context.getSenseDbInstance();
-		try {
-			List<CloudDetails> cloudDetails = template.findAll(CloudDetails.class);
-			if (cloudDetails.size() != 1) {
-				throw new BusinessException(ClientRegistrationErrorCodeType.CLOUD_DETAILS_NOT_FOUND);
-			}
-			return mapper.mapCloudDetails(cloudDetails.get(0));
+	public void setSenseMongoTemplate(MongoTemplate senseMongoTemplate) {
+		this.senseMongoTemplate = senseMongoTemplate;
+	}
 
-		} finally {
-			template.getDb().getMongo().close();
+	public CloudDetailsDto getCloudDetails() throws BusinessException {
+		List<CloudDetails> cloudDetails = senseMongoTemplate.findAll(CloudDetails.class);
+		if (cloudDetails.size() != 1) {
+			throw new BusinessException(ClientRegistrationErrorCodeType.CLOUD_DETAILS_NOT_FOUND);
 		}
+		return mapper.mapCloudDetails(cloudDetails.get(0));
 	}
 }

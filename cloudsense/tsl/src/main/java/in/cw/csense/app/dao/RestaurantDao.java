@@ -18,31 +18,27 @@ public class RestaurantDao {
 	private static final String RESTAURANT_ID_SEQ = "restaurant_seq";
 
 	@Autowired
+	RestaurantMapper mapper;
+	@Autowired
 	SenseContext context;
 	@Autowired
-	RestaurantMapper mapper;
+	MongoTemplate senseMongoTemplate;
+
+	public void setSenseMongoTemplate(MongoTemplate senseMongoTemplate) {
+		this.senseMongoTemplate = senseMongoTemplate;
+	}
 
 	public RestaurantDto getRestaurant(Integer restaurantId) throws BusinessException {
-		MongoTemplate template = context.getSenseDbInstance();
-		try {
-			Query findQuery = Query.query(Criteria.where(RESTAURANT_ID).is(restaurantId));
-			Restaurant restaurant = template.findOne(findQuery, Restaurant.class);
-			return mapper.mapRestaurantToDto(restaurant);
-		} finally {
-			template.getDb().getMongo().close();
-		}
+		Query findQuery = Query.query(Criteria.where(RESTAURANT_ID).is(restaurantId));
+		Restaurant restaurant = senseMongoTemplate.findOne(findQuery, Restaurant.class);
+		return mapper.mapRestaurantToDto(restaurant);
 	}
-	
+
 	public Integer getNextRestaurantId() {
 		return (int) context.getNextSequenceId(RESTAURANT_ID_SEQ);
 	}
-	
+
 	public void saveRestaurant(RestaurantDto dto) throws BusinessException {
-		MongoTemplate template = context.getSenseDbInstance();
-		try {
-			template.save(mapper.mapDtoToRestaurant(dto));
-		} finally {
-			template.getDb().getMongo().close();
-		}
+		senseMongoTemplate.save(mapper.mapDtoToRestaurant(dto));
 	}
 }
