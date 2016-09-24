@@ -47,7 +47,7 @@ public class ClientRegistrationDelegate {
 		try {
 			dto = mapper.mapClientRegistrationDetailsToDto(details);
 		} catch (NoSuchAlgorithmException e) {
-			throw new BusinessException(CommonErrorCodeType.SOMETHING_WENT_WRONG);
+			throw new BusinessException(CommonErrorCodeType.SOMETHING_WENT_WRONG, e);
 		}
 		restaurantDao.saveRestaurant(dto);
 	}
