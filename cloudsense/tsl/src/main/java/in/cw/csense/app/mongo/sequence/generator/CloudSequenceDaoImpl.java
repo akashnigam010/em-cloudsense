@@ -1,4 +1,4 @@
-package in.cw.csense.mongo.sequence.generator;
+package in.cw.csense.app.mongo.sequence.generator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
@@ -8,6 +8,10 @@ import org.springframework.data.mongodb.core.query.Criteria;
 import org.springframework.data.mongodb.core.query.Query;
 import org.springframework.data.mongodb.core.query.Update;
 import org.springframework.stereotype.Component;
+
+import in.cw.csense.app.mongo.sequence.generator.CloudSequenceDao;
+import in.cw.csense.app.mongo.sequence.generator.SequenceException;
+import in.cw.csense.app.mongo.sequence.generator.SequenceId;
 
 @Component
 @Configuration

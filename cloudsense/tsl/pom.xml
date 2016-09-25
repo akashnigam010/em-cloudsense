@@ -20,10 +20,5 @@
 			<artifactId>slu</artifactId>
 			<version>${cw.version}</version>
 		</dependency>
-		<dependency>
-			<groupId>cw</groupId>
-			<artifactId>cloudsense-dao</artifactId>
-			<version>${cw.version}</version>
-		</dependency>
 	</dependencies>
 </project>

@@ -146,7 +146,6 @@
 	<!-- Project Modules -->
 	<modules>
 		<module>slu</module>
-		<module>cloudsense-dao</module>
 		<module>tsl</module>
 		<module>cloudsense-ui</module>
 	</modules>

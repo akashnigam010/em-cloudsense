@@ -1,4 +1,4 @@
-package in.cw.csense.mongo.config;
+package in.cw.csense.app.mongo.config;
 
 import java.net.UnknownHostException;
 

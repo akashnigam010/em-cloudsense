@@ -9,7 +9,7 @@ import org.springframework.stereotype.Repository;
 import in.cw.csense.app.dto.RestaurantDto;
 import in.cw.csense.app.entity.Restaurant;
 import in.cw.csense.app.mapper.RestaurantMapper;
-import in.cw.csense.mongo.sequence.generator.CloudSequenceDao;
+import in.cw.csense.app.mongo.sequence.generator.CloudSequenceDao;
 
 @Repository
 public class RestaurantDao {

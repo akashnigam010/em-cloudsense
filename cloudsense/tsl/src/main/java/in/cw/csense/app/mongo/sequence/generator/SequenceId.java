@@ -1,4 +1,4 @@
-package in.cw.csense.mongo.sequence.generator;
+package in.cw.csense.app.mongo.sequence.generator;
 
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;

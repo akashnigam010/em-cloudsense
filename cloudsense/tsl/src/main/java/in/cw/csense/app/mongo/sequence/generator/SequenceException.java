@@ -1,4 +1,4 @@
-package in.cw.csense.mongo.sequence.generator;
+package in.cw.csense.app.mongo.sequence.generator;
 
 public class SequenceException extends RuntimeException {
 	private static final long serialVersionUID = 1L;
