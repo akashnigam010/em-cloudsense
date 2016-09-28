@@ -6,6 +6,7 @@ import in.cw.csense.app.message.processor.MessageProcessor;
 import in.cw.sense.api.bo.setting.dto.CloudConnectDto;
 
 public class HandShakeMessageElement implements MessageElement {
+
 	private CloudConnectDto cloudConnect;
 
 	public HandShakeMessageElement(CloudConnectDto cloudConnectDto) {

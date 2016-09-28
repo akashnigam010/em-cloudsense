@@ -1,6 +1,5 @@
 package in.cw.csense.app.message.element;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -28,10 +27,6 @@ public class ProcessedBill {
 	 *         successfully updated in cloud database.
 	 */
 	public List<Integer> getSucceededBillIds() {
-		if (succeededBillIds == null) {
-			return new ArrayList<>();
-		}
-
 		return succeededBillIds;
 	}
 
@@ -47,9 +42,6 @@ public class ProcessedBill {
 	}
 
 	public List<Integer> getFailedBillIds() {
-		if (failedBillIds == null) {
-			return new ArrayList<>();
-		}
 		return failedBillIds;
 	}
 

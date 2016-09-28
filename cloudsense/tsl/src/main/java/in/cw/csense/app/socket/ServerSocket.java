@@ -14,37 +14,36 @@ import in.cw.csense.app.processor.MessageProcessor;
 
 @ServerEndpoint(value = "/server", configurator = ServerSocketConfigurator.class)
 public class ServerSocket {
-
 	private final MessageProcessor messageProcessor = new MessageProcessor();
-
 	private static final Logger LOG = Logger.getLogger(ServerSocket.class);
 
+	/**
+	 * @param endPointConfig
+	 * @param session
+	 */
 	@OnOpen
 	public void handleOpen(EndpointConfig endPointConfig, Session session) {
-		LOG.info("******New connection request arrived.");
+		LOG.debug("******New connection request arrived******");
 
 	}
 
 	@OnMessage
 	public void handleMessage(String message, Session session) {
-		System.out.println("handling the message");
+		LOG.debug("handling the message...");
 		messageProcessor.process(message, session);
 	}
 
 	@OnClose
 	public void handleClose(Session session) {
-		LOG.info("******* Session is closed for client id : ");
+		LOG.info("*******Session is closed for client id : *******");
 		closeTheSession(session);
-		LOG.info("Session is closed : " + session.getId());
-
+		LOG.info("Session id: " + session.getId() + " closed....");
 	}
 
 	/*
-	 * @OnError
-	 * public void handleError(Session session) {
-	 * LOG.info("Session is being closed due to error from client machine.");
-	 * closeTheSession(session);
-	 * }
+	 * @OnError public void handleError(Session session) { LOG.info(
+	 * "Session is being closed due to error from client machine.");
+	 * closeTheSession(session); }
 	 */
 
 	private void closeTheSession(Session session) {
@@ -55,9 +54,8 @@ public class ServerSocket {
 					SessionCollector.removeSessionFor(clientID);
 				}
 			} catch (ClientNotFoundException e) {
-				LOG.info("Session is not active for client : " + clientID);
-			} 
+				LOG.error("Session is not active on client side with ID:" + clientID, e);
+			}
 		}
 	}
-
 }

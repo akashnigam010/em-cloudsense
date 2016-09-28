@@ -11,18 +11,15 @@ import in.cw.csense.app.message.element.MessageElementAdaptor;
 import in.cw.csense.app.message.processor.MessageProcessorImpl;
 
 public class MessageProcessor {
-
 	public void process(String message, Session session) {
 		Message messageObj = getMessageObjectFromJson(message);
 		final MessageProcessorImpl messageProcessor = new MessageProcessorImpl();
 		messageObj.getMessageElement().accept(messageProcessor, session);
-		
 	}
 
 	private Message getMessageObjectFromJson(String message) {
-		 GsonBuilder builder = new GsonBuilder().registerTypeAdapter(MessageElement.class, new MessageElementAdaptor());
-	     Gson gson = builder.create();
-	     
-	     return gson.fromJson(message, Message.class);
+		GsonBuilder builder = new GsonBuilder().registerTypeAdapter(MessageElement.class, new MessageElementAdaptor());
+		Gson gson = builder.create();
+		return gson.fromJson(message, Message.class);
 	}
 }

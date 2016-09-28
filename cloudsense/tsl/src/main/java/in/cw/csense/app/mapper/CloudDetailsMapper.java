@@ -7,7 +7,6 @@ import in.cw.csense.app.entity.CloudDetails;
 
 @Component
 public class CloudDetailsMapper {
-	
 	public CloudDetailsDto mapCloudDetails(CloudDetails entity) {
 		CloudDetailsDto dto = new CloudDetailsDto();
 		dto.setCloudUrl(entity.getCloudUrl());
@@ -15,5 +14,4 @@ public class CloudDetailsMapper {
 		dto.setPrivateKey(entity.getPrivateKey());
 		return dto;
 	}
-
 }

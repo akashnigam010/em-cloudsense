@@ -12,45 +12,36 @@ import in.cw.csense.app.message.element.HandShakeMessageElement;
 import in.cw.csense.app.message.element.ProcessedBill;
 import in.cw.csense.app.message.element.RequestMessageElement;
 import in.cw.csense.app.socket.SessionCollector;
-import in.cw.sense.api.bo.bill.entity.BillEntity;
+import in.cw.sense.api.bo.bill.dto.BillDto;
 import in.cw.sense.api.bo.setting.dto.CloudConnectDto;
 
 public class MessageProcessorImpl implements MessageProcessor {
-
 	private static final Logger LOG = Logger.getLogger(MessageProcessorImpl.class);
 
+	@Override
 	public void process(HandShakeMessageElement message, Session session) {
 		processNewSession(message, session);
 	}
 
-	// public void process(OrderDetailMessageElement orderDetail, Session
-	// session) {
-	// processOrderDetails(orderDetail, session);
-	//
-	// }
-
+	@Override
 	public void process(BillDetailMessageElement message, Session session) {
-		processTheBills(message.getBills(), session);
-		System.out.println("Processing the bills... at cloude side");
+		processTheBills(message.getBills(), message.getRestaurantId(), session);
+		LOG.debug("Processing the bills... at cloude side");
 
 	}
 
-	private void processTheBills(List<BillEntity> bills, final Session session) {
+	private void processTheBills(List<BillDto> bills, Integer restaurantId, final Session session) {
 		BillMessageProcessorHelper helper = new BillMessageProcessorHelper(SharedQueue.getInstance().getQueue());
-		helper.processBills(bills, session);
-
+		helper.processBills(bills, restaurantId, session);
 	}
 
+	@Override
 	public void process(RequestMessageElement message, Session session) {
-		// TODO Auto-generated method stub
-
 	}
 
 	@Override
 	public void process(BillAckMessageElement billAckMessageElement, Session session) {
-		// TODO Auto-generated method stub
 		processBillAckMessage(billAckMessageElement);
-
 	}
 
 	/**
@@ -70,38 +61,25 @@ public class MessageProcessorImpl implements MessageProcessor {
 			LOG.info("New session has been stored in the local map for the client : "
 					+ cloudConnectDto.getRestaurantId());
 		}
-
 	}
-
-	// private void processOrderDetails(OrderDetailMessageElement orderDetail,
-	// Session session) {
-	//
-	// ResponseRepository responseRepository =
-	// ResponseRepository.getRepositoryInstance();
-	// responseRepository.addResponseForRequest(orderDetail.getRequestID(),
-	// orderDetail.getOrders());
-	// }
 
 	private void processBillAckMessage(BillAckMessageElement billAckMessageElement) {
 		for (ProcessedBill processBill : billAckMessageElement.getProcessBills()) {
 			List<Integer> success = processBill.getSucceededBillIds();
 			List<Integer> failed = processBill.getFailedBillIds();
 			if (success.isEmpty()) {
-				System.out.println("No bills were sucessfull");
+				LOG.debug("No bills were successfully proccessed...");
 			} else {
 				for (Integer billId : success) {
-					System.out.println("sucess bill id : " + billId);
+					LOG.debug("sucess bill id : " + billId);
 				}
 			}
 
 			if (!failed.isEmpty()) {
 				for (Integer billId : failed) {
-					System.out.println("Failed bill id : " + billId);
+					LOG.debug("Failed bill id : " + billId);
 				}
 			}
-
 		}
-
 	}
-
 }

@@ -21,8 +21,6 @@ public class MessageElementAdaptor implements JsonSerializer<MessageElement>, Js
 		JsonElement jsonElement = (jsonObject.get("properties"));
 
 		try {
-			// @TODO : remove the hard coded package declaration from below
-			// code; instead use class's qualified name.
 			return context.deserialize(jsonElement, Class.forName("in.cw.csense.app.message.element." + jsonType));
 		} catch (ClassNotFoundException exception) {
 			throw new JsonParseException("Unknown element type: " + jsonType, exception);

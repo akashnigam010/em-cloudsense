@@ -51,5 +51,4 @@ public class ClientRegistrationDelegate {
 		}
 		restaurantDao.saveRestaurant(dto);
 	}
-
 }

@@ -8,12 +8,10 @@ import org.springframework.stereotype.Component;
 import cwf.helper.hash.HashUtil;
 import in.cw.csense.app.dto.RestaurantDto;
 import in.cw.csense.app.dto.request.ClientRegistrationDetailsRequest;
-import in.cw.csense.app.dto.response.ClientRegistrationDetailsResponse;
 import in.cw.csense.app.entity.Restaurant;
 
 @Component
 public class RestaurantMapper {
-
 	public RestaurantDto mapRestaurantToDto(Restaurant entity) {
 		RestaurantDto dto = new RestaurantDto();
 		dto.setRestaurantId(entity.getRestaurantId());

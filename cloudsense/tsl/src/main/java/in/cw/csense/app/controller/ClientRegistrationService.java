@@ -42,5 +42,4 @@ public class ClientRegistrationService {
 			return helper.failure(response, e);
 		}
 	}
-
 }

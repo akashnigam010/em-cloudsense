@@ -15,11 +15,8 @@ import in.cw.csense.app.message.element.ProcessedBill;
 import in.cw.csense.app.util.JsonUtil;
 
 public class BillMessageAcknowledger implements Runnable {
-
 	private static final Logger LOG = Logger.getLogger(BillMessageAcknowledger.class);
-
 	private final BlockingQueue<ProcessedBill> queue;
-
 	private final Session session;
 
 	public BillMessageAcknowledger(BlockingQueue queue, Session session) {
@@ -31,23 +28,21 @@ public class BillMessageAcknowledger implements Runnable {
 	public void run() {
 		while (true) {
 			try {
-				System.out.println("Message consumed : ");
+				LOG.info("Message has been consumed");
 				ProcessedBill processedBill = this.queue.take();
 				try {
 					if (session != null && session.isOpen()) {
 						session.getBasicRemote().sendText(prepareMessage(processedBill));
-					} else  {
-						System.out.println("Cant send bill message ack as session is closed.");
+					} else {
+						LOG.warn("Session closed, cant send bill message acknowledgment...");
 					}
 				} catch (IOException e) {
-					e.printStackTrace();
+					LOG.error("Exception occured while trying to send message acknowledgment..", e);
 				}
-			} catch (InterruptedException ex) {
-				LOG.debug(ex);
+			} catch (InterruptedException e) {
+				LOG.error("Exception occured while fetching details from queue...", e);
 			}
-
 		}
-
 	}
 
 	private String prepareMessage(final ProcessedBill processedBill) {
@@ -56,9 +51,6 @@ public class BillMessageAcknowledger implements Runnable {
 		BillAckMessageElement messageElement = new BillAckMessageElement();
 		messageElement.setProcessBills(Arrays.asList(processedBill));
 		message.setMessageElement(messageElement);
-		
 		return JsonUtil.toJson(message);
-
 	}
-
 }
