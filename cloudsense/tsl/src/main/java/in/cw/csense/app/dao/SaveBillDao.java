@@ -3,6 +3,7 @@ package in.cw.csense.app.dao;
 import java.util.List;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.mongodb.MongoDbFactory;
 import org.springframework.data.mongodb.core.MongoTemplate;
 import org.springframework.data.mongodb.core.SimpleMongoDbFactory;
@@ -21,13 +22,11 @@ public class SaveBillDao {
 	private static final Logger LOG = Logger.getLogger(SaveBillDao.class);
 	private static final String BILL_ID = "billId";
 	private static final String RESTAURANT_ID = "restaurantId";
-	BillMapper mapper = new BillMapper();
-	/* @BillMapper mapper
-	   @Autowired MongoTemplate cloudSenseMongoTemplate;
 
-	public void setCloudSenseMongoTemplate(MongoTemplate cloudSenseMongoTemplate) {
-		this.cloudSenseMongoTemplate = cloudSenseMongoTemplate;
-	}*/
+	@Autowired
+	BillMapper mapper;
+	@Autowired
+	MongoTemplate cloudSenseMongoTemplate;
 
 	public boolean saveBill(BillDto billDto, Integer restaurantId) {
 		boolean flag = false;
@@ -52,7 +51,7 @@ public class SaveBillDao {
 		return flag;
 	}
 
-	//TODO remove these methods and use autowiring
+	// TODO remove these methods and use autowiring
 	public MongoDbFactory mongoDbFactory() throws Exception {
 		return new SimpleMongoDbFactory(new MongoClient("localhost", 27017), "sense-cloud-db");
 	}

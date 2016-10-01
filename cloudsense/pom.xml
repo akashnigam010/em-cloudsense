@@ -1,7 +1,7 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
-	
+
 	<groupId>cw</groupId>
 	<artifactId>cloudsense</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
@@ -19,9 +19,9 @@
 		<cw.version>0.0.1-SNAPSHOT</cw.version>
 		<cwf.version>0.0.1-SNAPSHOT</cwf.version>
 	</properties>
-	
+
 	<dependencies>
-	
+
 		<!-- Junit Dependencies -->
 		<dependency>
 			<groupId>junit</groupId>
@@ -41,27 +41,27 @@
 			<artifactId>javax.servlet-api</artifactId>
 			<version>3.1.0</version>
 		</dependency>
-		
+
 		<!-- Sense Bundles API Dependencies -->
 		<dependency>
 			<groupId>cwf</groupId>
 			<artifactId>cwf-helper</artifactId>
 			<version>${cwf.version}</version>
 		</dependency>
-		
+
 		<!-- Sense API Dependencies -->
 		<dependency>
 			<groupId>cw</groupId>
 			<artifactId>api</artifactId>
 			<version>${cw.version}</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>com.thetransactioncompany</groupId>
 			<artifactId>cors-filter</artifactId>
 			<version>2.5</version>
 		</dependency>
-		
+
 		<!-- Spring framework -->
 		<dependency>
 			<groupId>org.springframework</groupId>
@@ -112,13 +112,13 @@
 			<artifactId>mongo-java-driver</artifactId>
 			<version>3.2.1</version>
 		</dependency>
-		
+
 		<dependency>
 			<groupId>org.springframework.data</groupId>
 			<artifactId>spring-data-commons</artifactId>
 			<version>1.11.2.RELEASE</version>
 		</dependency>
-		
+
 		<!-- Websocket -->
 		<dependency>
 			<groupId>javax.websocket</groupId>
@@ -126,7 +126,12 @@
 			<version>1.1</version>
 			<scope>provided</scope>
 		</dependency>
-		
+		<dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-websocket</artifactId>
+			<version>${spring.version}</version>
+		</dependency>
+
 	</dependencies>
 	<build>
 		<!-- Final name is the name of the jar/war file -->
@@ -142,7 +147,7 @@
 			</plugin>
 		</plugins>
 	</build>
-	
+
 	<!-- Project Modules -->
 	<modules>
 		<module>slu</module>

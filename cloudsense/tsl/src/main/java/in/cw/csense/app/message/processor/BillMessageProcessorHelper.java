@@ -7,23 +7,34 @@ import java.util.concurrent.BlockingQueue;
 import javax.websocket.Session;
 
 import org.apache.log4j.Logger;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import in.cw.csense.app.dao.SaveBillDao;
 import in.cw.csense.app.message.element.ProcessedBill;
 import in.cw.sense.api.bo.bill.dto.BillDto;
 
+@Repository
 public class BillMessageProcessorHelper {
 	private static final Logger LOG = Logger.getLogger(BillMessageProcessorHelper.class);
-	SaveBillDao dao = new SaveBillDao();
+	
+	@Autowired
+	private SaveBillDao dao;
+	
 	private final BlockingQueue<ProcessedBill> queue;
 
 	public BillMessageProcessorHelper(BlockingQueue<ProcessedBill> sharedQueue) {
 		this.queue = sharedQueue;
 	}
+	
+	public BillMessageProcessorHelper() {
+		queue = SharedQueue.getInstance().getQueue();
+	}
 
 	public void processBills(List<BillDto> bills, Integer restaurantId, final Session session) {
 		@SuppressWarnings("unused")
 		Test test = new Test(session);
+		
 		ProcessedBill processedBill = new ProcessedBill();
 		List<Integer> successBillIds = new ArrayList<>();
 		List<Integer> failedBillIds = new ArrayList<>();

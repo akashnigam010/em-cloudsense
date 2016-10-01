@@ -1,10 +1,10 @@
 package in.cw.csense.app.socket;
 
-import javax.websocket.EndpointConfig;
 import javax.websocket.OnClose;
 import javax.websocket.OnMessage;
 import javax.websocket.OnOpen;
 import javax.websocket.Session;
+import javax.websocket.server.PathParam;
 import javax.websocket.server.ServerEndpoint;
 
 import org.apache.log4j.Logger;
@@ -12,24 +12,34 @@ import org.apache.log4j.Logger;
 import in.cw.csense.app.exception.ClientNotFoundException;
 import in.cw.csense.app.processor.MessageProcessor;
 
-@ServerEndpoint(value = "/server", configurator = ServerSocketConfigurator.class)
+@ServerEndpoint(value = "/server/{clientId}", configurator = ServerSocketConfigurator.class)
 public class ServerSocket {
-	private final MessageProcessor messageProcessor = new MessageProcessor();
+
 	private static final Logger LOG = Logger.getLogger(ServerSocket.class);
+	
+	private MessageProcessor messageProcessor;
 
 	/**
-	 * @param endPointConfig
+	 * Default constructor.
+	 */
+	public ServerSocket() {
+
+	}
+
+	/**
+	 * @param endPointConfig 
 	 * @param session
 	 */
 	@OnOpen
-	public void handleOpen(EndpointConfig endPointConfig, Session session) {
+	public void handleOpen(@PathParam("clientId")String clientId, Session session) {
 		LOG.debug("******New connection request arrived******");
-
+		LOG.info("************* client infor :  " + clientId);
 	}
 
 	@OnMessage
 	public void handleMessage(String message, Session session) {
 		LOG.debug("handling the message...");
+		initializeMessageProcessor();
 		messageProcessor.process(message, session);
 	}
 
@@ -57,5 +67,12 @@ public class ServerSocket {
 				LOG.error("Session is not active on client side with ID:" + clientID, e);
 			}
 		}
+	}
+	
+	private void initializeMessageProcessor() {
+		if(this.messageProcessor == null) {
+			this.messageProcessor = (MessageProcessor) ApplicationContextProvider.getApplicationContext().getBean("messageProcessor");
+		}
+		
 	}
 }

@@ -1,7 +1,7 @@
 var serverAddress;
 var clientData;
 $(document).ready(function() {
-	serverAddress = 'http://localhost:8087/cloudsense/';
+	serverAddress = 'http://localhost:8087/cloudsense-ui/';
 	$('#clientDetailsDiv').hide();
 	$('#getClientDetailsBtn').show();
 });
