@@ -2,6 +2,8 @@ package in.cw.csense.app.processor;
 
 import javax.websocket.Session;
 
+import org.springframework.beans.factory.annotation.Autowired;
+
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 
@@ -11,9 +13,10 @@ import in.cw.csense.app.message.element.MessageElementAdaptor;
 import in.cw.csense.app.message.processor.MessageProcessorImpl;
 
 public class MessageProcessor {
+	@Autowired MessageProcessorImpl messageProcessor;
+	
 	public void process(String message, Session session) {
 		Message messageObj = getMessageObjectFromJson(message);
-		final MessageProcessorImpl messageProcessor = new MessageProcessorImpl();
 		messageObj.getMessageElement().accept(messageProcessor, session);
 	}
 

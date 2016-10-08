@@ -5,29 +5,23 @@ import java.util.List;
 import javax.websocket.Session;
 
 import org.apache.log4j.Logger;
-import org.springframework.beans.factory.annotation.Configurable;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
 
 import in.cw.csense.app.message.element.BillAckMessageElement;
 import in.cw.csense.app.message.element.BillDetailMessageElement;
 import in.cw.csense.app.message.element.HandShakeMessageElement;
 import in.cw.csense.app.message.element.ProcessedBill;
 import in.cw.csense.app.message.element.RequestMessageElement;
-import in.cw.csense.app.socket.ApplicationContextProvider;
 import in.cw.csense.app.socket.SessionCollector;
 import in.cw.sense.api.bo.bill.dto.BillDto;
 import in.cw.sense.api.bo.setting.dto.CloudConnectDto;
 
-@Configurable
+@Service
 public class MessageProcessorImpl implements MessageProcessor {
 	private static final Logger LOG = Logger.getLogger(MessageProcessorImpl.class);
-	
-	private BillMessageProcessorHelper helper;
+	@Autowired BillMessageProcessorHelper helper;
 
-	
-	public MessageProcessorImpl() {
-		helper = ApplicationContextProvider.getApplicationContext().getAutowireCapableBeanFactory().getBean(BillMessageProcessorHelper.class);
-	}
-	
 	@Override
 	public void process(HandShakeMessageElement message, Session session) {
 		processNewSession(message, session);

@@ -14,16 +14,14 @@ import in.cw.csense.app.processor.MessageProcessor;
 
 @ServerEndpoint(value = "/server/{clientId}", configurator = ServerSocketConfigurator.class)
 public class ServerSocket {
-
 	private static final Logger LOG = Logger.getLogger(ServerSocket.class);
-	
 	private MessageProcessor messageProcessor;
-
-	/**
-	 * Default constructor.
-	 */
-	public ServerSocket() {
-
+	
+	{
+		if (this.messageProcessor == null) {
+			this.messageProcessor = (MessageProcessor) ApplicationContextProvider.getApplicationContext()
+					.getBean("messageProcessor");
+		}
 	}
 
 	/**
@@ -39,7 +37,6 @@ public class ServerSocket {
 	@OnMessage
 	public void handleMessage(String message, Session session) {
 		LOG.debug("handling the message...");
-		initializeMessageProcessor();
 		messageProcessor.process(message, session);
 	}
 
@@ -67,12 +64,5 @@ public class ServerSocket {
 				LOG.error("Session is not active on client side with ID:" + clientID, e);
 			}
 		}
-	}
-	
-	private void initializeMessageProcessor() {
-		if(this.messageProcessor == null) {
-			this.messageProcessor = (MessageProcessor) ApplicationContextProvider.getApplicationContext().getBean("messageProcessor");
-		}
-		
 	}
 }

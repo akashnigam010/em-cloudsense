@@ -10,9 +10,6 @@
 	<mvc:annotation-driven />
 	<context:annotation-config />
 	<context:component-scan base-package="in.cw.csense, in.cw.csense.*, cwf, cwf.*" />
-	
 	<bean id="applicationContextProvider" class="in.cw.csense.app.socket.ApplicationContextProvider" />
-	
 	<bean id="messageProcessor" class="in.cw.csense.app.processor.MessageProcessor" />
-
 </beans>
