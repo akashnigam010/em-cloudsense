@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.data.mongodb.core.mapping.Field;
 
@@ -19,6 +20,9 @@ import in.cw.sense.api.bo.bill.type.PaymentModeType;
 
 @Document(collection = "bill")
 public class Bill {
+	@Id
+	private Integer id;
+
 	@Field("billId")
 	private Integer billId;
 
@@ -84,6 +88,14 @@ public class Bill {
 
 	@Field("settledDateTimeToDisplay")
 	private String settledDateTimeToDisplay;
+
+	public Integer getId() {
+		return id;
+	}
+
+	public void setId(Integer id) {
+		this.id = id;
+	}
 
 	public Integer getBillId() {
 		return billId;

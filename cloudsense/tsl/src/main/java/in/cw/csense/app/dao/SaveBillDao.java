@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 
 import in.cw.csense.app.entity.Bill;
 import in.cw.csense.app.mapper.BillMapper;
+import in.cw.csense.app.mongo.sequence.generator.CloudSequenceDao;
 import in.cw.sense.api.bo.bill.dto.BillDto;
 
 @Repository
@@ -18,11 +19,11 @@ public class SaveBillDao {
 	private static final Logger LOG = Logger.getLogger(SaveBillDao.class);
 	private static final String BILL_ID = "billId";
 	private static final String RESTAURANT_ID = "restaurantId";
+	private static final String BILL_ID_SEQ = "bill_seq";
 
-	@Autowired
-	BillMapper mapper;
-	@Autowired
-	MongoTemplate cloudSenseMongoTemplate;
+	@Autowired BillMapper mapper;
+	@Autowired MongoTemplate cloudSenseMongoTemplate;
+	@Autowired CloudSequenceDao cloudSequenceDao;
 
 	public void setCloudSenseMongoTemplate(MongoTemplate cloudSenseMongoTemplate) {
 		this.cloudSenseMongoTemplate = cloudSenseMongoTemplate;
@@ -37,6 +38,7 @@ public class SaveBillDao {
 			List<Bill> findResult = cloudSenseMongoTemplate.find(findQuery, Bill.class);
 			if (findResult == null || findResult.isEmpty()) {
 				bill = new Bill();
+				bill.setId(cloudSequenceDao.getNextSequenceId(BILL_ID_SEQ));
 				bill.setRestaurantId(restaurantId);
 			} else {
 				bill = findResult.get(0);

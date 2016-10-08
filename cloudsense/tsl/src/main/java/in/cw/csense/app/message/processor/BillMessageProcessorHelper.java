@@ -33,8 +33,8 @@ public class BillMessageProcessorHelper {
 
 	public void processBills(List<BillDto> bills, Integer restaurantId, final Session session) {
 		@SuppressWarnings("unused")
+		//TODO:Rename this Test class respectively
 		Test test = new Test(session);
-		
 		ProcessedBill processedBill = new ProcessedBill();
 		List<Integer> successBillIds = new ArrayList<>();
 		List<Integer> failedBillIds = new ArrayList<>();
