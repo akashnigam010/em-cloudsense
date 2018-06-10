@@ -1,0 +1,94 @@
+{  
+   "id":120,
+   "tableNumber":"T-002",
+   "personName":"DEAFULT",
+   "status":"SETTLED",
+   "orders":[  
+      {  
+         "id":101,
+         "name":"Fish Fry",
+         "quantity":2,
+         "price":320,
+         "type":"FNB",
+         "value":640
+      },
+      {  
+         "id":102,
+         "name":"Gobi Manchurian",
+         "quantity":3,
+         "price":120,
+         "type":"FNB",
+         "value":360
+      },
+      {  
+         "id":105,
+         "name":"Paneer Masala",
+         "quantity":3,
+         "price":320,
+         "type":"FNB",
+         "value":960
+      }
+   ],
+   "itemCount":{  
+      "fnb":8,
+      "liquor":0
+   },
+   "discount":{  
+      "fnb":null,
+      "bar":null
+   },
+   "subTotal":{  
+      "fnb":1960,
+      "liquor":0
+   },
+   "internalCharges":[  
+      {  
+         "name":"Service Charge",
+         "fnb":{  
+            "rate":10,
+            "value":196.00
+         },
+         "liquor":{  
+            "rate":10,
+            "value":0.00
+         }
+      }
+   ],
+   "subTotalExclusive":{  
+      "fnb":2156.00,
+      "liquor":0.00
+   },
+   "taxes":[  
+      {  
+         "name":"Service Tax",
+         "fnb":{  
+            "rate":5.8,
+            "value":125.05
+         },
+         "liquor":{  
+            "rate":5.8,
+            "value":0.00
+         }
+      },
+      {  
+         "name":"VAT",
+         "fnb":{  
+            "rate":14.5,
+            "value":312.62
+         },
+         "liquor":{  
+            "rate":14.5,
+            "value":0.00
+         }
+      }
+   ],
+   "subTotalInclusive":{  
+      "fnb":2468.62,
+      "liquor":0.00
+   },
+   "grandTotal":2468.62,
+   "paymentMode":"CASH",
+   "syncStatus":"NOT_IN_SYNC",
+   "createdDateTime":"Thu Sep 08 13:56:54 IST 2016",
+   "settledDateTime":"Thu Sep 08 13:57:10 IST 2016"
+}
